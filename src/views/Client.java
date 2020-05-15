@@ -294,7 +294,6 @@ public class Client {
         }
     }
 
-
     public static void backToMainMenu(WineStoreManager manager) throws IOException {
         Scanner sc = new Scanner(System.in);
         System.out.println("1. Quay lại menu chính");

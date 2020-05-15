@@ -26,16 +26,18 @@ public class ExportFromInventory {
             System.out.println("Nhập tên hoặc số điện thoại khách hàng");
             String customName = sc.nextLine();
             int indexCustom = SearchCustomer.excute(customers, customName);
-            int discount = (customers.get(indexCustom).getDiscountPercent())/100;
-            int pay = (wineList.get(index).getPriceSale())*amount*(1-discount);
+            int discount = customers.get(indexCustom).getDiscountPercent();
+            int pay = (wineList.get(index).getPriceSale())*amount*(100-discount);
+            pay = pay/100;
             int oldReceivable = customers.get(indexCustom).getReceivable();
-            customers.get(indexCustom).setReceivable(oldReceivable+pay);
+            customers.get(indexCustom).setReceivable((int) (oldReceivable+pay));
 
             //thay đổi số lượng hàng trong kho
             int oldNumber = wineList.get(index).getInventoryNumber();
             if (amount < oldNumber) {
                 wineList.get(index).setInventoryNumber(oldNumber-amount);
                 System.out.println("Xuất kho thành công");
+                System.out.println("Công nợ mới của khách hàng : "+customers.get(indexCustom).getReceivable());
             }
             else {
                 System.out.println("Ko đủ số lượng để xuất");
